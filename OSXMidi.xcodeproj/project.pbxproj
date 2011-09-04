@@ -11,7 +11,7 @@
 		12C07A761413DA89003778BF /* OSXMidi.m in Sources */ = {isa = PBXBuildFile; fileRef = 12C07A751413DA89003778BF /* OSXMidi.m */; };
 		12C07A7E1413DA89003778BF /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12C07A7D1413DA89003778BF /* SenTestingKit.framework */; };
 		12C07A7F1413DA89003778BF /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12C07A6B1413DA89003778BF /* Cocoa.framework */; };
-		12C07A821413DA89003778BF /* OSXMidi.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 12C07A681413DA89003778BF /* OSXMidi.dylib */; };
+		12C07A821413DA89003778BF /* libOSXMidi.jnilib in Frameworks */ = {isa = PBXBuildFile; fileRef = 12C07A681413DA89003778BF /* libOSXMidi.jnilib */; };
 		12C07A881413DA89003778BF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 12C07A861413DA89003778BF /* InfoPlist.strings */; };
 		12C07A8A1413DA89003778BF /* OSXMidiTests.h in Resources */ = {isa = PBXBuildFile; fileRef = 12C07A891413DA89003778BF /* OSXMidiTests.h */; };
 		12C07A8C1413DA89003778BF /* OSXMidiTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 12C07A8B1413DA89003778BF /* OSXMidiTests.m */; };
@@ -28,7 +28,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		12C07A681413DA89003778BF /* OSXMidi.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = OSXMidi.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
+		12C07A681413DA89003778BF /* libOSXMidi.jnilib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libOSXMidi.jnilib; sourceTree = BUILT_PRODUCTS_DIR; };
 		12C07A6B1413DA89003778BF /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		12C07A6E1413DA89003778BF /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		12C07A6F1413DA89003778BF /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -59,7 +59,7 @@
 			files = (
 				12C07A7E1413DA89003778BF /* SenTestingKit.framework in Frameworks */,
 				12C07A7F1413DA89003778BF /* Cocoa.framework in Frameworks */,
-				12C07A821413DA89003778BF /* OSXMidi.dylib in Frameworks */,
+				12C07A821413DA89003778BF /* libOSXMidi.jnilib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -79,7 +79,7 @@
 		12C07A691413DA89003778BF /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				12C07A681413DA89003778BF /* OSXMidi.dylib */,
+				12C07A681413DA89003778BF /* libOSXMidi.jnilib */,
 				12C07A7C1413DA89003778BF /* OSXMidiTests.octest */,
 			);
 			name = Products;
@@ -169,7 +169,7 @@
 			);
 			name = OSXMidi;
 			productName = OSXMidi;
-			productReference = 12C07A681413DA89003778BF /* OSXMidi.dylib */;
+			productReference = 12C07A681413DA89003778BF /* libOSXMidi.jnilib */;
 			productType = "com.apple.product-type.library.dynamic";
 		};
 		12C07A7B1413DA89003778BF /* OSXMidiTests */ = {
@@ -331,8 +331,11 @@
 			buildSettings = {
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
+				EXECUTABLE_EXTENSION = jnilib;
+				EXECUTABLE_PREFIX = lib;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "OSXMidi/OSXMidi-Prefix.pch";
+				INSTALL_PATH = /Library/Java/Extensions;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -342,8 +345,11 @@
 			buildSettings = {
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
+				EXECUTABLE_EXTENSION = jnilib;
+				EXECUTABLE_PREFIX = lib;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "OSXMidi/OSXMidi-Prefix.pch";
+				INSTALL_PATH = /Library/Java/Extensions;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
