@@ -33,12 +33,12 @@
 		12C07A6E1413DA89003778BF /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		12C07A6F1413DA89003778BF /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		12C07A701413DA89003778BF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		12C07A731413DA89003778BF /* OSXMidi-Prefix.pch */ = {isa = PBXFileReference; path = "OSXMidi-Prefix.pch"; sourceTree = "<group>"; };
-		12C07A741413DA89003778BF /* OSXMidi.h */ = {isa = PBXFileReference; path = OSXMidi.h; sourceTree = "<group>"; };
+		12C07A731413DA89003778BF /* OSXMidi-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OSXMidi-Prefix.pch"; sourceTree = "<group>"; };
+		12C07A741413DA89003778BF /* OSXMidi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OSXMidi.h; sourceTree = "<group>"; };
 		12C07A751413DA89003778BF /* OSXMidi.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OSXMidi.m; sourceTree = "<group>"; };
 		12C07A7C1413DA89003778BF /* OSXMidiTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OSXMidiTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		12C07A7D1413DA89003778BF /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		12C07A851413DA89003778BF /* OSXMidiTests-Info.plist */ = {isa = PBXFileReference; path = "OSXMidiTests-Info.plist"; sourceTree = "<group>"; };
+		12C07A851413DA89003778BF /* OSXMidiTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "OSXMidiTests-Info.plist"; sourceTree = "<group>"; };
 		12C07A871413DA89003778BF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		12C07A891413DA89003778BF /* OSXMidiTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OSXMidiTests.h; sourceTree = "<group>"; };
 		12C07A8B1413DA89003778BF /* OSXMidiTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OSXMidiTests.m; sourceTree = "<group>"; };
