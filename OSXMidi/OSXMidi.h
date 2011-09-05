@@ -1,5 +1,3 @@
-#import <Foundation/Foundation.h>
+#import <JavaVM/jni.h>
 
-@interface OSXMidi : NSObject
-
-@end
+JNIEXPORT jint JNICALL Java_cx_oneten_osxmidi_OSXMidi_getOneTen (JNIEnv *, jclass);
