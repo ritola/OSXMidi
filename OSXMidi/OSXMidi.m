@@ -1,15 +1,7 @@
 #import "OSXMidi.h"
 
-@implementation OSXMidi
-
-- (id)init
+JNIEXPORT jint JNICALL Java_cx_oneten_osxmidi_OSXMidi_getOneTen
+(JNIEnv *env, jclass clazz)
 {
-    self = [super init];
-    if (self) {
-        // Initialization code here.
-    }
-    
-    return self;
+    return 110;
 }
-
-@end
