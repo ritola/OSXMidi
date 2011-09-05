@@ -1,3 +1,11 @@
 xcuserdata
 *.iws
 .idea/workspace.xml
+java/target/
+java/lib_managed/
+java/src_managed/
+java/project/boot/
+java/project/build/target/
+java/project/plugins/target/
+java/project/plugins/lib_managed/
+java/project/plugins/src_managed/
