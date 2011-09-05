@@ -1,6 +1,6 @@
 xcuserdata
 *.iws
-.idea/workspace.xml
+java/.idea/workspace.xml
 java/target/
 java/lib_managed/
 java/src_managed/
