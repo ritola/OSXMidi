@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		120AB2261416BE8700BC50E0 /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 120AB2251416BE8700BC50E0 /* CoreMIDI.framework */; };
 		12C07A6C1413DA89003778BF /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12C07A6B1413DA89003778BF /* Cocoa.framework */; };
 		12C07A761413DA89003778BF /* OSXMidi.m in Sources */ = {isa = PBXBuildFile; fileRef = 12C07A751413DA89003778BF /* OSXMidi.m */; };
 		12C07A7E1413DA89003778BF /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12C07A7D1413DA89003778BF /* SenTestingKit.framework */; };
@@ -28,6 +29,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		120AB2251416BE8700BC50E0 /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = System/Library/Frameworks/CoreMIDI.framework; sourceTree = SDKROOT; };
 		12C07A681413DA89003778BF /* libOSXMidi.jnilib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libOSXMidi.jnilib; sourceTree = BUILT_PRODUCTS_DIR; };
 		12C07A6B1413DA89003778BF /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		12C07A6E1413DA89003778BF /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -49,6 +51,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				120AB2261416BE8700BC50E0 /* CoreMIDI.framework in Frameworks */,
 				12C07A6C1413DA89003778BF /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -69,6 +72,7 @@
 		12C07A5D1413DA89003778BF = {
 			isa = PBXGroup;
 			children = (
+				120AB2251416BE8700BC50E0 /* CoreMIDI.framework */,
 				12C07A711413DA89003778BF /* OSXMidi */,
 				12C07A831413DA89003778BF /* OSXMidiTests */,
 				12C07A6A1413DA89003778BF /* Frameworks */,
@@ -397,6 +401,7 @@
 				12C07A911413DA89003778BF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		12C07A921413DA89003778BF /* Build configuration list for PBXNativeTarget "OSXMidiTests" */ = {
 			isa = XCConfigurationList;
@@ -405,6 +410,7 @@
 				12C07A941413DA89003778BF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
