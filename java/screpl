@@ -1,1 +1,0 @@
-java -Dfile.encoding=UTF8 -Dsbt.main.class=sbt.ConsoleMain -Dsbt.boot.directory=`dirname $0`/project/boot -jar `dirname $0`/project/sbt-launch.jar "$@"
