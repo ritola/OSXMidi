@@ -1,3 +1,8 @@
 #import <JavaVM/jni.h>
+#import <CoreMIDI/MIDIServices.h>
 
-JNIEXPORT jint JNICALL Java_cx_oneten_osxmidi_OSXMidi_getOneTen (JNIEnv *, jclass);
+CFStringRef CreateEndpointName(MIDIEndpointRef, bool);
+jstring CFStringToJavaString(JNIEnv *, CFStringRef);
+
+JNIEXPORT jobject JNICALL Java_cx_oneten_osxmidi_OSXMidi_getEndpoints (JNIEnv *, jclass);
+
