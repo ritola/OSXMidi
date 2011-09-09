@@ -16,9 +16,9 @@ You'll need:
 * OS X Lion
 * Midi devices
 * Some tools
-    ** Xcode 4.1
-    ** IntelliJ Idea, Community Edition is just fine
-    ** Terminal
+    * Xcode 4.1
+    * IntelliJ Idea, Community Edition is just fine
+    * Terminal
 
 ### Java drivers without Java?
 
