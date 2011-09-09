@@ -9,8 +9,8 @@ JNIEXPORT jobject JNICALL Java_cx_oneten_osxmidi_OSXMidi_getEndpoints
     
     jobject vector = [java newObject: "java/util/Vector" : "()V"];
     
-    jclass vectorClass = (*env)->FindClass(env, "java/util/Vector");
-    jclass endpointClass = (*env)->FindClass(env, "cx/oneten/osxmidi/jni/MidiEndpoint");
+    jclass vectorClass = [java findClass: "java/util/Vector"];
+    jclass endpointClass = [java findClass: "cx/oneten/osxmidi/jni/MidiEndpoint"];
     jmethodID vectorAddElementId = (*env)->GetMethodID(env, vectorClass, "addElement", "(Ljava/lang/Object;)V");
 
     ItemCount count = MIDIGetNumberOfSources();

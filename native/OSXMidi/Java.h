@@ -10,6 +10,7 @@ jstring CFStringToJavaString(JNIEnv *, CFStringRef);
 -(Java*) initWithEnv: (JNIEnv*) env;
 
 -(void) setEnv: (JNIEnv*) env;
+- (jclass) findClass: (const char*) name;
 - (jobject) newObject: (const char*) name : (const char*) signature;
 
 @end

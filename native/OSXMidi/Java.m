@@ -24,8 +24,12 @@ jstring CFStringToJavaString(JNIEnv *env, CFStringRef str)
     env = e;
 }
 
+- (jclass) findClass: (const char*) name {
+    return (*env)->FindClass(env, name);
+}
+
 - (jobject) newObject: (const char*) name : (const char*) signature {
-    jclass c = (*env)->FindClass(env, name);
+    jclass c = [self findClass: name];
     return (*env)->NewObject(env, c, (*env)->GetMethodID(env, c, "<init>", signature));
 }
 
