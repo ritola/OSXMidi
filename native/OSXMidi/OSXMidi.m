@@ -5,15 +5,17 @@
 JNIEXPORT jobject JNICALL Java_cx_oneten_osxmidi_OSXMidi_getEndpoints
 (JNIEnv *env, jclass clazz)
 {
+    Java *java = [[Java alloc] initWithEnv: env];
+    
+    jobject vector = [java newObject: "java/util/Vector" : "()V"];
+    
     jclass vectorClass = (*env)->FindClass(env, "java/util/Vector");
     jclass endpointClass = (*env)->FindClass(env, "cx/oneten/osxmidi/jni/MidiEndpoint");
-    jobject vector = (*env)->NewObject(env, vectorClass, (*env)->GetMethodID(env, vectorClass, "<init>", "()V"));
     jmethodID vectorAddElementId = (*env)->GetMethodID(env, vectorClass, "addElement", "(Ljava/lang/Object;)V");
-    jmethodID endpointCreateId = (*env)->GetMethodID(env, endpointClass, "<init>", "()V");
-                                              
+
     ItemCount count = MIDIGetNumberOfSources();
     for (ItemCount i = 0; i < count; i++) {
-        jobject midiEndpoint = (*env)->NewObject(env, endpointClass, endpointCreateId);
+        jobject midiEndpoint = [java newObject: "cx/oneten/osxmidi/jni/MidiEndpoint" : "()V"];
         (*env)->CallVoidMethod(env, vector, vectorAddElementId, midiEndpoint);
 
         MIDIEndpointRef destination = MIDIGetSource(i);
@@ -28,7 +30,7 @@ JNIEXPORT jobject JNICALL Java_cx_oneten_osxmidi_OSXMidi_getEndpoints
 
     count = MIDIGetNumberOfDestinations();
     for (ItemCount i = 0; i < count; i++) {
-        jobject midiEndpoint = (*env)->NewObject(env, endpointClass, endpointCreateId);
+        jobject midiEndpoint = [java newObject: "cx/oneten/osxmidi/jni/MidiEndpoint" : "()V"];
         (*env)->CallVoidMethod(env, vector, vectorAddElementId, midiEndpoint);
         
         MIDIEndpointRef destination = MIDIGetDestination(i);
@@ -40,6 +42,8 @@ JNIEXPORT jobject JNICALL Java_cx_oneten_osxmidi_OSXMidi_getEndpoints
                                javaName);
         CFRelease(name);        
     }
+    
+    [java release];
     
     return vector;
 }
