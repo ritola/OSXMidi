@@ -1,15 +1,6 @@
 #import "OSXMidi.h"
+#import "Java.h"
 #import "Midi.h"
-
-jstring CFStringToJavaString(JNIEnv *env, CFStringRef str)
-{
-    CFRange range;
-    range.location = 0;
-    range.length = CFStringGetLength(str);
-    UniChar charBuf[range.length];
-    CFStringGetCharacters(str, range, charBuf);
-    return (*env)->NewString(env, (jchar *)charBuf, (jsize)range.length);
-}
 
 JNIEXPORT jobject JNICALL Java_cx_oneten_osxmidi_OSXMidi_getEndpoints
 (JNIEnv *env, jclass clazz)
