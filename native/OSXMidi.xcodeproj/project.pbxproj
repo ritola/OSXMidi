@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		120AB2261416BE8700BC50E0 /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 120AB2251416BE8700BC50E0 /* CoreMIDI.framework */; };
+		120AB22A141A92A000BC50E0 /* Midi.h in Headers */ = {isa = PBXBuildFile; fileRef = 120AB228141A92A000BC50E0 /* Midi.h */; };
+		120AB22B141A92A000BC50E0 /* Midi.m in Sources */ = {isa = PBXBuildFile; fileRef = 120AB229141A92A000BC50E0 /* Midi.m */; };
 		12C07A6C1413DA89003778BF /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12C07A6B1413DA89003778BF /* Cocoa.framework */; };
 		12C07A761413DA89003778BF /* OSXMidi.m in Sources */ = {isa = PBXBuildFile; fileRef = 12C07A751413DA89003778BF /* OSXMidi.m */; };
 		12C07A7E1413DA89003778BF /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12C07A7D1413DA89003778BF /* SenTestingKit.framework */; };
@@ -30,6 +32,8 @@
 
 /* Begin PBXFileReference section */
 		120AB2251416BE8700BC50E0 /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = System/Library/Frameworks/CoreMIDI.framework; sourceTree = SDKROOT; };
+		120AB228141A92A000BC50E0 /* Midi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Midi.h; sourceTree = "<group>"; };
+		120AB229141A92A000BC50E0 /* Midi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Midi.m; sourceTree = "<group>"; };
 		12C07A681413DA89003778BF /* libOSXMidi.jnilib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libOSXMidi.jnilib; sourceTree = BUILT_PRODUCTS_DIR; };
 		12C07A6B1413DA89003778BF /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		12C07A6E1413DA89003778BF /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -115,6 +119,8 @@
 				12C07A741413DA89003778BF /* OSXMidi.h */,
 				12C07A751413DA89003778BF /* OSXMidi.m */,
 				12C07A721413DA89003778BF /* Supporting Files */,
+				120AB228141A92A000BC50E0 /* Midi.h */,
+				120AB229141A92A000BC50E0 /* Midi.m */,
 			);
 			path = OSXMidi;
 			sourceTree = "<group>";
@@ -153,6 +159,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				120AB22A141A92A000BC50E0 /* Midi.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -252,6 +259,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				12C07A761413DA89003778BF /* OSXMidi.m in Sources */,
+				120AB22B141A92A000BC50E0 /* Midi.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
