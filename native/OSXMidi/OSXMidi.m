@@ -6,7 +6,6 @@ JNIEXPORT jobject JNICALL Java_cx_oneten_osxmidi_OSXMidi_getEndpoints
 (JNIEnv *env, jclass clazz)
 {
     Java *java = [[Java alloc] initWithEnv: env];
-    
     jobject vector = [java newObject: "java/util/Vector" : "()V"];
     
     ItemCount count = MIDIGetNumberOfSources();
@@ -36,6 +35,5 @@ JNIEXPORT jobject JNICALL Java_cx_oneten_osxmidi_OSXMidi_getEndpoints
     }
     
     [java release];
-    
     return vector;
 }
