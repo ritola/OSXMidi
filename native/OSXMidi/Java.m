@@ -42,4 +42,9 @@ jstring CFStringToJavaString(JNIEnv *env, CFStringRef str)
     va_end(args);
 }
 
+- (void) setLongField: (jobject) object : (const char*) name : (long) value {
+    jclass c = (*env)->GetObjectClass(env, object);
+    (*env)->SetLongField(env, object, (*env)->GetFieldID(env, c, name, "J"), value);
+}
+
 @end
