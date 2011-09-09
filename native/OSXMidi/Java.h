@@ -12,5 +12,6 @@ jstring CFStringToJavaString(JNIEnv *, CFStringRef);
 -(void) setEnv: (JNIEnv*) env;
 - (jclass) findClass: (const char*) name;
 - (jobject) newObject: (const char*) name : (const char*) signature;
+- (void) callVoidMethod: (jobject) object : (const char*) name : (const char*) signature, ...;
 
 @end

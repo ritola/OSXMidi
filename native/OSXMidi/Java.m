@@ -33,5 +33,13 @@ jstring CFStringToJavaString(JNIEnv *env, CFStringRef str)
     return (*env)->NewObject(env, c, (*env)->GetMethodID(env, c, "<init>", signature));
 }
 
+- (void) callVoidMethod: (jobject) object : (const char*) name : (const char*) signature, ... {
+    jclass c = (*env)->GetObjectClass(env, object);
+
+    va_list args;
+    va_start(args, signature);
+    (*env)->CallVoidMethodV(env, object, (*env)->GetMethodID(env, c, name, signature), args);
+    va_end(args);
+}
 
 @end

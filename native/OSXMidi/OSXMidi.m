@@ -9,14 +9,12 @@ JNIEXPORT jobject JNICALL Java_cx_oneten_osxmidi_OSXMidi_getEndpoints
     
     jobject vector = [java newObject: "java/util/Vector" : "()V"];
     
-    jclass vectorClass = [java findClass: "java/util/Vector"];
     jclass endpointClass = [java findClass: "cx/oneten/osxmidi/jni/MidiEndpoint"];
-    jmethodID vectorAddElementId = (*env)->GetMethodID(env, vectorClass, "addElement", "(Ljava/lang/Object;)V");
 
     ItemCount count = MIDIGetNumberOfSources();
     for (ItemCount i = 0; i < count; i++) {
         jobject midiEndpoint = [java newObject: "cx/oneten/osxmidi/jni/MidiEndpoint" : "()V"];
-        (*env)->CallVoidMethod(env, vector, vectorAddElementId, midiEndpoint);
+        [java callVoidMethod: vector :"addElement" : "(Ljava/lang/Object;)V", midiEndpoint];
 
         MIDIEndpointRef destination = MIDIGetSource(i);
         (*env)->SetLongField(env, midiEndpoint, (*env)->GetFieldID(env, endpointClass, "ref", "J"), destination);
@@ -31,7 +29,7 @@ JNIEXPORT jobject JNICALL Java_cx_oneten_osxmidi_OSXMidi_getEndpoints
     count = MIDIGetNumberOfDestinations();
     for (ItemCount i = 0; i < count; i++) {
         jobject midiEndpoint = [java newObject: "cx/oneten/osxmidi/jni/MidiEndpoint" : "()V"];
-        (*env)->CallVoidMethod(env, vector, vectorAddElementId, midiEndpoint);
+        [java callVoidMethod: vector :"addElement" : "(Ljava/lang/Object;)V", midiEndpoint];
         
         MIDIEndpointRef destination = MIDIGetDestination(i);
         (*env)->SetLongField(env, midiEndpoint, (*env)->GetFieldID(env, endpointClass, "ref", "J"), destination);
