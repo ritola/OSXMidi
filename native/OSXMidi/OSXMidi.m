@@ -9,8 +9,6 @@ JNIEXPORT jobject JNICALL Java_cx_oneten_osxmidi_OSXMidi_getEndpoints
     
     jobject vector = [java newObject: "java/util/Vector" : "()V"];
     
-    jclass endpointClass = [java findClass: "cx/oneten/osxmidi/jni/MidiEndpoint"];
-
     ItemCount count = MIDIGetNumberOfSources();
     for (ItemCount i = 0; i < count; i++) {
         jobject midiEndpoint = [java newObject: "cx/oneten/osxmidi/jni/MidiEndpoint" : "()V"];
@@ -20,9 +18,7 @@ JNIEXPORT jobject JNICALL Java_cx_oneten_osxmidi_OSXMidi_getEndpoints
         [java setLongField: midiEndpoint : "ref" : source];
 
         CFStringRef name = CreateEndpointName(source, false);
-        jstring javaName = CFStringToJavaString(env, name);
-        (*env)->SetObjectField(env, midiEndpoint, (*env)->GetFieldID(env, endpointClass, "name", "Ljava/lang/String;"), 
-                            javaName);
+        [java setStringField: midiEndpoint : "name" : name];
         CFRelease(name);        
     }
 
@@ -35,9 +31,7 @@ JNIEXPORT jobject JNICALL Java_cx_oneten_osxmidi_OSXMidi_getEndpoints
         [java setLongField: midiEndpoint : "ref" : destination];
         
         CFStringRef name = CreateEndpointName(destination, false);
-        jstring javaName = CFStringToJavaString(env, name);
-        (*env)->SetObjectField(env, midiEndpoint, (*env)->GetFieldID(env, endpointClass, "name", "Ljava/lang/String;"), 
-                               javaName);
+        [java setStringField: midiEndpoint : "name" : name];
         CFRelease(name);        
     }
     
