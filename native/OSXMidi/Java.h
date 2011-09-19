@@ -19,3 +19,15 @@ jstring CFStringToJavaString(JNIEnv *, CFStringRef);
 - (void) setStringField: (jobject) object : (const char*) name : (CFStringRef) value;
 
 @end
+
+@interface JavaVector : Java {
+@private
+    jobject vector;
+}
+
+-(JavaVector*) init: (JNIEnv*) env;
+-(void) setVector: (jobject) vector;
+-(jobject) getVector;
+-(void) addElement: (jobject) o;
+
+@end

@@ -58,3 +58,24 @@ jstring CFStringToJavaString(JNIEnv *env, CFStringRef str)
 }
 
 @end
+
+@implementation JavaVector
+-(JavaVector*) init: (JNIEnv *) e {
+    self = (JavaVector*) [super initWithEnv: (JNIEnv *) e];
+    [self setVector: [self newObject: "java/util/Vector" : "()V"]];
+    return self;
+}
+
+-(void) setVector: (jobject) v {
+    vector = v;
+}
+
+-(jobject) getVector {
+    return vector;
+}
+
+-(void) addElement: (jobject) o {
+    [self callVoidMethod: vector :"addElement" : "(Ljava/lang/Object;)V", o];
+}
+
+@end
