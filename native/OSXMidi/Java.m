@@ -51,6 +51,11 @@ jstring CFStringToJavaString(JNIEnv *env, CFStringRef str)
     va_end(args);
 }
 
+- (jobject) getObjectField: (jobject) object : (const char*) name : (const char*) signature {
+    jclass c = (*env)->GetObjectClass(env, object);
+    return (*env)->GetObjectField(env, object, (*env)->GetFieldID(env, c, name, "J"));
+}
+
 - (void) setLongField: (jobject) object : (const char*) name : (long) value {
     jclass c = (*env)->GetObjectClass(env, object);
     (*env)->SetLongField(env, object, (*env)->GetFieldID(env, c, name, "J"), value);
