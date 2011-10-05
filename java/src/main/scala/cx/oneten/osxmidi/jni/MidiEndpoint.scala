@@ -1,5 +1,7 @@
 package cx.oneten.osxmidi.jni
 
+import java.util.{Map, HashMap}
+
 class MidiObject {
   var ref: Long = 0
   var properties: Map[String, String] = new HashMap
@@ -7,11 +9,11 @@ class MidiObject {
 }
 
 class MidiEndpoint extends MidiObject {
-  entity: MidiEntity
+  var entity: Option[MidiEntity] = None
 }
 
 class MidiEntity extends MidiObject {
-  device: MidiDevice
+  var device: Option[MidiDevice] = None
 }
 
 class MidiDevice extends MidiObject {
