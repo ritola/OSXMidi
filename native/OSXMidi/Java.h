@@ -14,6 +14,8 @@ jstring CFStringToJavaString(JNIEnv *, CFStringRef);
 - (jobject) newObject: (const char*) name : (const char*) signature;
 - (void) callVoidMethod: (jobject) object : (const char*) name : (const char*) signature, ...;
 
+- (jobject) getObjectField: (jobject) object : (const char*) name;
+
 - (void) setLongField: (jobject) object : (const char*) name : (long) value;
 - (void) setObjectField: (jobject) object : (const char*) name : (const char*) signature : (jobject) value;
 - (void) setStringField: (jobject) object : (const char*) name : (CFStringRef) value;
