@@ -42,6 +42,15 @@ jstring CFStringToJavaString(JNIEnv *env, CFStringRef str)
     va_end(args);
 }
 
+- (void) callObjectMethod: (jobject) object : (const char*) name : (const char*) signature, ... {
+    jclass c = (*env)->GetObjectClass(env, object);
+    
+    va_list args;
+    va_start(args, signature);
+    (*env)->CallObjectMethodV(env, object, (*env)->GetMethodID(env, c, name, signature), args);
+    va_end(args);
+}
+
 - (void) setLongField: (jobject) object : (const char*) name : (long) value {
     jclass c = (*env)->GetObjectClass(env, object);
     (*env)->SetLongField(env, object, (*env)->GetFieldID(env, c, name, "J"), value);
@@ -76,6 +85,27 @@ jstring CFStringToJavaString(JNIEnv *env, CFStringRef str)
 
 -(void) addElement: (jobject) o {
     [self callVoidMethod: vector :"addElement" : "(Ljava/lang/Object;)V", o];
+}
+
+@end
+
+@implementation JavaMap
+-(JavaMap*) init: (JNIEnv *) e map: (jobject) m {
+    self = (JavaMap*) [super initWithEnv: (JNIEnv *) e];
+    [self setMap: m];
+    return self;
+}
+
+-(void) setMap: (jobject) m {
+    map = m;
+}
+
+-(jobject) getMap {
+    return map;
+}
+
+-(void) put: (jobject) key : (jobject) value {
+    [self callObjectMethod: map : "put" : "(Ljava/lang/Object;Ljava/lang/Object;)V", key, value];
 }
 
 @end

@@ -31,3 +31,15 @@ jstring CFStringToJavaString(JNIEnv *, CFStringRef);
 -(void) addElement: (jobject) o;
 
 @end
+
+@interface JavaMap : Java {
+@private
+    jobject map;
+}
+
+-(JavaMap*) init: (JNIEnv*) env map: (jobject) map;
+-(void) setMap: (jobject) map;
+-(jobject) getMap;
+-(void) put: (jobject) key : (jobject) value;
+
+@end
