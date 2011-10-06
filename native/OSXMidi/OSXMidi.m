@@ -10,25 +10,15 @@ JNIEXPORT jobject JNICALL Java_cx_oneten_osxmidi_OSXMidi_getEndpoints
     ItemCount count = MIDIGetNumberOfSources();
     for (ItemCount i = 0; i < count; i++) {
         MidiEndpoint *midiEndpoint = [[[MidiEndpoint alloc] init: env] autorelease];
-        [vector addElement: midiEndpoint->object];
-
         [midiEndpoint setRef: MIDIGetSource(i)];
-        
-        CFStringRef value = CreateEndpointName(midiEndpoint->ref, false);
-        [midiEndpoint->properties put: CFStringToJavaString(env, kMIDIPropertyName) : CFStringToJavaString(env, value)];
-        CFRelease(value);
+        [vector addElement: midiEndpoint->object];
     }
 
     count = MIDIGetNumberOfDestinations();
     for (ItemCount i = 0; i < count; i++) {
         MidiEndpoint *midiEndpoint = [[[MidiEndpoint alloc] init: env] autorelease];
-        [vector addElement: midiEndpoint->object];
-        
         [midiEndpoint setRef: MIDIGetDestination(i)];
-        
-        CFStringRef value = CreateEndpointName(midiEndpoint->ref, false);
-        [midiEndpoint->properties put: CFStringToJavaString(env, kMIDIPropertyName) : CFStringToJavaString(env, value)];
-        CFRelease(value);
+        [vector addElement: midiEndpoint->object];
     }
 
     jobject result = vector->object;
@@ -53,6 +43,9 @@ JNIEXPORT jobject JNICALL Java_cx_oneten_osxmidi_OSXMidi_getEndpoints
 -(void) setRef: (MIDIEndpointRef) r {
     ref = r;
     [self setLongField: "ref" : ref];
+    CFStringRef value = CreateEndpointName(ref, false);
+    [properties put: CFStringToJavaString(env, kMIDIPropertyName) : CFStringToJavaString(env, value)];
+    CFRelease(value);
 }
 -(void) dealloc {
     [properties dealloc];
