@@ -10,7 +10,7 @@ JNIEXPORT jobject JNICALL Java_cx_oneten_osxmidi_OSXMidi_getEndpoints
     ItemCount count = MIDIGetNumberOfSources();
     for (ItemCount i = 0; i < count; i++) {
         MidiEndpoint *midiEndpoint = [[MidiEndpoint alloc] initEndpoint: env];
-        [vector addElement: [midiEndpoint getObject]];
+        [vector addElement: midiEndpoint->object];
 
         MIDIEndpointRef source = MIDIGetSource(i);
         [midiEndpoint setLongField: "ref" : source];
@@ -26,7 +26,7 @@ JNIEXPORT jobject JNICALL Java_cx_oneten_osxmidi_OSXMidi_getEndpoints
     count = MIDIGetNumberOfDestinations();
     for (ItemCount i = 0; i < count; i++) {
         MidiEndpoint *midiEndpoint = [[MidiEndpoint alloc] initEndpoint: env];
-        [vector addElement: [midiEndpoint getObject]];
+        [vector addElement: midiEndpoint->object];
         
         MIDIEndpointRef destination = MIDIGetDestination(i);
         [midiEndpoint setLongField: "ref" : destination];
@@ -40,7 +40,7 @@ JNIEXPORT jobject JNICALL Java_cx_oneten_osxmidi_OSXMidi_getEndpoints
     }
 
     [java release];
-    jobject result = vector.getObject;
+    jobject result = vector->object;
     [vector release];
     return result;
 }
@@ -48,7 +48,7 @@ JNIEXPORT jobject JNICALL Java_cx_oneten_osxmidi_OSXMidi_getEndpoints
 @implementation MidiEndpoint
 -(MidiEndpoint*) initEndpoint: (JNIEnv *) e {
     self = (MidiEndpoint*) [super initWithEnv: e];
-    [self setObject: [self newObject: "cx/oneten/osxmidi/jni/MidiEndpoint" : "()V"]];
+    object = [self newObject: "cx/oneten/osxmidi/jni/MidiEndpoint" : "()V"];
     return self;
 }
 

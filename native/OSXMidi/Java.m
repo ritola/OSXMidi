@@ -14,18 +14,8 @@ jstring CFStringToJavaString(JNIEnv *env, CFStringRef str)
 -(Java*) initWithEnv: (JNIEnv *) e {
     self = [super init];
     
-    if ( self ) {
-        [self setEnv: e];
-    }
+    if ( self ) env = e;
     return self;
-}
-
--(void) setEnv: (JNIEnv *) e {
-    env = e;
-}
-
--(JNIEnv *) getEnv {
-    return env;
 }
 
 - (jclass) findClass: (const char*) name {
@@ -42,16 +32,8 @@ jstring CFStringToJavaString(JNIEnv *env, CFStringRef str)
 @implementation JavaObject
 -(JavaObject*) initWithEnv: (JNIEnv) e object: (jobject) o {
     self = (JavaObject*) [super initWithEnv: (JNIEnv *) e];
-    if ( self ) { [self setObject: o]; }
+    if ( self ) { object = o; }
     return self;
-}
-
--(void) setObject: (jobject) o {
-    object = o;
-}
-
--(jobject) getObject {
-    return object;
 }
 
 - (jfieldID) findFieldId: (const char*) name : (const char*) signature {
@@ -126,7 +108,7 @@ jstring CFStringToJavaString(JNIEnv *env, CFStringRef str)
 @implementation JavaVector
 -(JavaVector*) init: (JNIEnv *) e {
     self = (JavaVector*) [super initWithEnv: e];
-    [self setObject: [self newObject: "java/util/Vector" : "()V"]];
+    object = [self newObject: "java/util/Vector" : "()V"];
     return self;
 }
 
@@ -139,7 +121,7 @@ jstring CFStringToJavaString(JNIEnv *env, CFStringRef str)
 @implementation JavaMap
 -(JavaMap*) init: (JNIEnv *) e map: (jobject) m {
     self = (JavaMap*) [super initWithEnv: e];
-    [self setObject: m];
+    object = m;
     return self;
 }
 

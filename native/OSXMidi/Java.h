@@ -6,22 +6,16 @@ jstring CFStringToJavaString(JNIEnv *, CFStringRef);
 @protected
     JNIEnv* env;
 }
-
 -(Java*) initWithEnv: (JNIEnv*) env;
-
--(void) setEnv: (JNIEnv*) env;
 -(jclass) findClass: (const char*) name;
 -(jobject) newObject: (const char*) name : (const char*) signature;
 @end
 
 @interface JavaObject : Java {
-@private
+@public
     jobject object;
 }
 -(JavaObject*) initWithEnv: (JNIEnv) e object: (jobject) o;
--(void) setObject: (jobject) o;
--(jobject) getObject;
-
 -(jfieldID) findFieldId: (const char*) name : (const char*) signature;
 -(void) callVoidMethod: (const char*) name : (const char*) signature, ...;
 
