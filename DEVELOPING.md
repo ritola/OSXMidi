@@ -22,10 +22,10 @@ We need help on the following:
 You can pick any of the following
 
 * Enumerate available interfaces
-** Map name property for endpoint, entity and device) to Java
-** Link endpoints to entities and entities to devices
-** Map those in Scala to [http://download.oracle.com/javase/1.5.0/docs/api/javax/sound/midi/MidiDevice.Info.html]
-** Make a service
+    * Map name property for endpoint, entity and device) to Java
+    * Link endpoints to entities and entities to devices
+    * Map those in Scala to [MidiDevice](http://download.oracle.com/javase/1.5.0/docs/api/javax/sound/midi/MidiDevice.Info.html)
+    * Make a service
 * Open and Close an interface
 * Send and receive MIDI messages
 
