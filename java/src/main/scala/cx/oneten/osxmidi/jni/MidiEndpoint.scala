@@ -10,10 +10,12 @@ class MidiObject {
 
 class MidiEndpoint extends MidiObject {
   var entity: Option[MidiEntity] = None
+  def setEntity(e: MidiEntity) { entity = Option(e) }
 }
 
 class MidiEntity extends MidiObject {
   var device: Option[MidiDevice] = None
+  def setDevice(d: MidiDevice) { device = Option(d) }
 }
 
 class MidiDevice extends MidiObject {
