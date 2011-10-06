@@ -4,7 +4,7 @@ import java.util.{Map, HashMap}
 
 class MidiObject {
   var ref: Long = 0
-  var properties: Map[String, String] = new HashMap
+  val properties: Map[String, String] = new HashMap
   override def toString = "[MidiObject: ref=" + ref + " properties=" + properties + "]"
 }
 

@@ -28,6 +28,38 @@ jstring CFStringToJavaString(JNIEnv *env, CFStringRef str)
     return (*env)->FindClass(env, name);
 }
 
+- (jfieldID) findFieldId: (jobject) object : (const char*) name : (const char*) signature {
+    jclass c = (*env)->GetObjectClass(env, object);
+    jfieldID id = NULL;
+    while (id == NULL) {
+        id = (*env)->GetFieldID(env, c, name, signature);
+        jthrowable exc = (*env)->ExceptionOccurred(env);
+        if (exc) {
+            (*env)->ExceptionClear(env);
+        }
+        if (id != NULL) return id;
+        c = (*env)->GetSuperclass(env, c);
+        if (c == NULL) return NULL;
+    }
+    return id;
+}
+
+- (jmethodID) findMethodId: (jobject) object : (const char*) name : (const char*) signature {
+    jclass c = (*env)->GetObjectClass(env, object);
+    jmethodID id = NULL;
+    while (id == NULL) {
+        id = (*env)->GetMethodID(env, c, name, signature);
+        jthrowable exc = (*env)->ExceptionOccurred(env);
+        if (exc) {
+            (*env)->ExceptionClear(env);
+        }
+        if (id != NULL) return id;
+        c = (*env)->GetSuperclass(env, c);
+        if (c == NULL) return NULL;
+    }
+    return id;
+}
+
 - (jobject) newObject: (const char*) name : (const char*) signature {
     jclass c = [self findClass: name];
     return (*env)->NewObject(env, c, (*env)->GetMethodID(env, c, "<init>", signature));
@@ -43,17 +75,14 @@ jstring CFStringToJavaString(JNIEnv *env, CFStringRef str)
 }
 
 - (void) callObjectMethod: (jobject) object : (const char*) name : (const char*) signature, ... {
-    jclass c = (*env)->GetObjectClass(env, object);
-    
     va_list args;
     va_start(args, signature);
-    (*env)->CallObjectMethodV(env, object, (*env)->GetMethodID(env, c, name, signature), args);
+    (*env)->CallObjectMethodV(env, object, [self findMethodId: object : name : signature], args);
     va_end(args);
 }
 
 - (jobject) getObjectField: (jobject) object : (const char*) name : (const char*) signature {
-    jclass c = (*env)->GetObjectClass(env, object);
-    return (*env)->GetObjectField(env, object, (*env)->GetFieldID(env, c, name, "J"));
+    return (*env)->GetObjectField(env, object, [self findFieldId: object : name : signature]);
 }
 
 - (void) setLongField: (jobject) object : (const char*) name : (long) value {
@@ -110,7 +139,7 @@ jstring CFStringToJavaString(JNIEnv *env, CFStringRef str)
 }
 
 -(void) put: (jobject) key : (jobject) value {
-    [self callObjectMethod: map : "put" : "(Ljava/lang/Object;Ljava/lang/Object;)V", key, value];
+    [self callObjectMethod: map : "put" : "(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;", key, value];
 }
 
 @end
