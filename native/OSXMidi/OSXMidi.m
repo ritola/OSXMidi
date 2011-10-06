@@ -17,11 +17,9 @@ JNIEXPORT jobject JNICALL Java_cx_oneten_osxmidi_OSXMidi_getEndpoints
         [java setLongField: midiEndpoint : "ref" : source];
         
         JavaMap *properties = [[JavaMap alloc] init: env map: [java getObjectField: midiEndpoint : "properties" : "Ljava/util/Map;"]];
-        CFStringRef key = CFSTR("name");
         CFStringRef value = CreateEndpointName(source, false);
-        [properties put: CFStringToJavaString(env, key) : CFStringToJavaString(env, value)];
+        [properties put: CFStringToJavaString(env, kMIDIPropertyName) : CFStringToJavaString(env, value)];
         CFRelease(value);
-        CFRelease(key);
         [properties release];
     }
 
@@ -34,10 +32,8 @@ JNIEXPORT jobject JNICALL Java_cx_oneten_osxmidi_OSXMidi_getEndpoints
         [java setLongField: midiEndpoint : "ref" : destination];
         
         JavaMap *properties = [[JavaMap alloc] init: env map: [java getObjectField: midiEndpoint : "properties" : "Ljava/util/Map;"]];
-        CFStringRef key = CFSTR("name");
         CFStringRef value = CreateEndpointName(destination, false);
-        [properties put: CFStringToJavaString(env, key) : CFStringToJavaString(env, key)];
-        CFRelease(key);
+        [properties put: CFStringToJavaString(env, kMIDIPropertyName) : CFStringToJavaString(env, value)];
         CFRelease(value);
         [properties release];
     }
