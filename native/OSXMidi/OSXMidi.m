@@ -1,6 +1,5 @@
-#import "OSXMidi.h"
-#import "Java.h"
 #import "Midi.h"
+#import "OSXMidi.h"
 
 JNIEXPORT jobject JNICALL Java_cx_oneten_osxmidi_OSXMidi_getEndpoints
 (JNIEnv *env, jclass clazz)
@@ -10,36 +9,47 @@ JNIEXPORT jobject JNICALL Java_cx_oneten_osxmidi_OSXMidi_getEndpoints
     
     ItemCount count = MIDIGetNumberOfSources();
     for (ItemCount i = 0; i < count; i++) {
-        jobject midiEndpoint = [java newObject: "cx/oneten/osxmidi/jni/MidiEndpoint" : "()V"];
-        [vector addElement: midiEndpoint];
+        MidiEndpoint *midiEndpoint = [[MidiEndpoint alloc] initEndpoint: env];
+        [vector addElement: [midiEndpoint getObject]];
 
         MIDIEndpointRef source = MIDIGetSource(i);
-        [java setLongField: midiEndpoint : "ref" : source];
+        [midiEndpoint setLongField: "ref" : source];
         
-        JavaMap *properties = [[JavaMap alloc] init: env map: [java getObjectField: midiEndpoint : "properties" : "Ljava/util/Map;"]];
+        JavaMap *properties = [[JavaMap alloc] init: env map: [midiEndpoint getObjectField: "properties" : "Ljava/util/Map;"]];
         CFStringRef value = CreateEndpointName(source, false);
         [properties put: CFStringToJavaString(env, kMIDIPropertyName) : CFStringToJavaString(env, value)];
         CFRelease(value);
         [properties release];
+        [midiEndpoint release];
     }
 
     count = MIDIGetNumberOfDestinations();
     for (ItemCount i = 0; i < count; i++) {
-        jobject midiEndpoint = [java newObject: "cx/oneten/osxmidi/jni/MidiEndpoint" : "()V"];
-        [vector addElement: midiEndpoint];
+        MidiEndpoint *midiEndpoint = [[MidiEndpoint alloc] initEndpoint: env];
+        [vector addElement: [midiEndpoint getObject]];
         
         MIDIEndpointRef destination = MIDIGetDestination(i);
-        [java setLongField: midiEndpoint : "ref" : destination];
+        [midiEndpoint setLongField: "ref" : destination];
         
-        JavaMap *properties = [[JavaMap alloc] init: env map: [java getObjectField: midiEndpoint : "properties" : "Ljava/util/Map;"]];
+        JavaMap *properties = [[JavaMap alloc] init: env map: [midiEndpoint getObjectField: "properties" : "Ljava/util/Map;"]];
         CFStringRef value = CreateEndpointName(destination, false);
         [properties put: CFStringToJavaString(env, kMIDIPropertyName) : CFStringToJavaString(env, value)];
         CFRelease(value);
         [properties release];
+        [midiEndpoint release];
     }
 
     [java release];
-    jobject result = vector.getVector;
+    jobject result = vector.getObject;
     [vector release];
     return result;
 }
+
+@implementation MidiEndpoint
+-(MidiEndpoint*) initEndpoint: (JNIEnv *) e {
+    self = (MidiEndpoint*) [super initWithEnv: e];
+    [self setObject: [self newObject: "cx/oneten/osxmidi/jni/MidiEndpoint" : "()V"]];
+    return self;
+}
+
+@end

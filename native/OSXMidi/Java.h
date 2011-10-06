@@ -3,45 +3,40 @@
 jstring CFStringToJavaString(JNIEnv *, CFStringRef);
 
 @interface Java : NSObject {
-@private
+@protected
     JNIEnv* env;
 }
 
 -(Java*) initWithEnv: (JNIEnv*) env;
 
 -(void) setEnv: (JNIEnv*) env;
-- (jclass) findClass: (const char*) name;
-- (jfieldID) findFieldId: (jobject) object : (const char*) name : (const char*) signature;
-- (jobject) newObject: (const char*) name : (const char*) signature;
-- (void) callVoidMethod: (jobject) object : (const char*) name : (const char*) signature, ...;
-
-- (jobject) getObjectField: (jobject) object : (const char*) name : (const char*) signature;
-
-- (void) setLongField: (jobject) object : (const char*) name : (long) value;
-- (void) setObjectField: (jobject) object : (const char*) name : (const char*) signature : (jobject) value;
-- (void) setStringField: (jobject) object : (const char*) name : (CFStringRef) value;
+-(jclass) findClass: (const char*) name;
+-(jobject) newObject: (const char*) name : (const char*) signature;
 @end
 
-@interface JavaVector : Java {
+@interface JavaObject : Java {
 @private
-    jobject vector;
+    jobject object;
 }
+-(JavaObject*) initWithEnv: (JNIEnv) e object: (jobject) o;
+-(void) setObject: (jobject) o;
+-(jobject) getObject;
 
+-(jfieldID) findFieldId: (const char*) name : (const char*) signature;
+-(void) callVoidMethod: (const char*) name : (const char*) signature, ...;
+
+-(jobject) getObjectField: (const char*) name : (const char*) signature;
+-(void) setLongField: (const char*) name : (long) value;
+-(void) setObjectField: (const char*) name : (const char*) signature : (jobject) value;
+-(void) setStringField: (const char*) name : (CFStringRef) value;
+@end
+
+@interface JavaVector : JavaObject {}
 -(JavaVector*) init: (JNIEnv*) env;
--(void) setVector: (jobject) vector;
--(jobject) getVector;
 -(void) addElement: (jobject) o;
-
 @end
 
-@interface JavaMap : Java {
-@private
-    jobject map;
-}
-
+@interface JavaMap : JavaObject {}
 -(JavaMap*) init: (JNIEnv*) env map: (jobject) map;
--(void) setMap: (jobject) map;
--(jobject) getMap;
 -(void) put: (jobject) key : (jobject) value;
-
 @end

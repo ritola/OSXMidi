@@ -24,11 +24,37 @@ jstring CFStringToJavaString(JNIEnv *env, CFStringRef str)
     env = e;
 }
 
+-(JNIEnv *) getEnv {
+    return env;
+}
+
 - (jclass) findClass: (const char*) name {
     return (*env)->FindClass(env, name);
 }
 
-- (jfieldID) findFieldId: (jobject) object : (const char*) name : (const char*) signature {
+- (jobject) newObject: (const char*) name : (const char*) signature {
+    jclass c = [self findClass: name];
+    return (*env)->NewObject(env, c, (*env)->GetMethodID(env, c, "<init>", signature));
+}
+
+@end
+
+@implementation JavaObject
+-(JavaObject*) initWithEnv: (JNIEnv) e object: (jobject) o {
+    self = (JavaObject*) [super initWithEnv: (JNIEnv *) e];
+    if ( self ) { [self setObject: o]; }
+    return self;
+}
+
+-(void) setObject: (jobject) o {
+    object = o;
+}
+
+-(jobject) getObject {
+    return object;
+}
+
+- (jfieldID) findFieldId: (const char*) name : (const char*) signature {
     jclass c = (*env)->GetObjectClass(env, object);
     jfieldID id = NULL;
     while (id == NULL) {
@@ -44,7 +70,7 @@ jstring CFStringToJavaString(JNIEnv *env, CFStringRef str)
     return id;
 }
 
-- (jmethodID) findMethodId: (jobject) object : (const char*) name : (const char*) signature {
+- (jmethodID) findMethodId: (const char*) name : (const char*) signature {
     jclass c = (*env)->GetObjectClass(env, object);
     jmethodID id = NULL;
     while (id == NULL) {
@@ -60,86 +86,65 @@ jstring CFStringToJavaString(JNIEnv *env, CFStringRef str)
     return id;
 }
 
-- (jobject) newObject: (const char*) name : (const char*) signature {
-    jclass c = [self findClass: name];
-    return (*env)->NewObject(env, c, (*env)->GetMethodID(env, c, "<init>", signature));
-}
-
-- (void) callVoidMethod: (jobject) object : (const char*) name : (const char*) signature, ... {
+- (void) callVoidMethod: (const char*) name : (const char*) signature, ... {
     jclass c = (*env)->GetObjectClass(env, object);
-
+    
     va_list args;
     va_start(args, signature);
     (*env)->CallVoidMethodV(env, object, (*env)->GetMethodID(env, c, name, signature), args);
     va_end(args);
 }
 
-- (void) callObjectMethod: (jobject) object : (const char*) name : (const char*) signature, ... {
+- (void) callObjectMethod: (const char*) name : (const char*) signature, ... {
     va_list args;
     va_start(args, signature);
-    (*env)->CallObjectMethodV(env, object, [self findMethodId: object : name : signature], args);
+    (*env)->CallObjectMethodV(env, object, [self findMethodId : name : signature], args);
     va_end(args);
 }
 
-- (jobject) getObjectField: (jobject) object : (const char*) name : (const char*) signature {
-    return (*env)->GetObjectField(env, object, [self findFieldId: object : name : signature]);
+- (jobject) getObjectField: (const char*) name : (const char*) signature {
+    return (*env)->GetObjectField(env, object, [self findFieldId: name : signature]);
 }
 
-- (void) setLongField: (jobject) object : (const char*) name : (long) value {
+- (void) setLongField: (const char*) name : (long) value {
     jclass c = (*env)->GetObjectClass(env, object);
     (*env)->SetLongField(env, object, (*env)->GetFieldID(env, c, name, "J"), value);
 }
 
-- (void) setObjectField: (jobject) object : (const char*) name : (const char*) signature : (jobject) value {
+- (void) setObjectField: (const char*) name : (const char*) signature : (jobject) value {
     jclass c = (*env)->GetObjectClass(env, object);
     (*env)->SetObjectField(env, object, (*env)->GetFieldID(env, c, name, signature), value);
 }
 
-- (void) setStringField: (jobject) object : (const char*) name : (CFStringRef) value{
+- (void) setStringField: (const char*) name : (CFStringRef) value{
     jstring s = CFStringToJavaString(env, value);
-    [self setObjectField: object : name : "Ljava/lang/String;" : s ];
+    [self setObjectField: name : "Ljava/lang/String;" : s ];
 }
 
 @end
 
 @implementation JavaVector
 -(JavaVector*) init: (JNIEnv *) e {
-    self = (JavaVector*) [super initWithEnv: (JNIEnv *) e];
-    [self setVector: [self newObject: "java/util/Vector" : "()V"]];
+    self = (JavaVector*) [super initWithEnv: e];
+    [self setObject: [self newObject: "java/util/Vector" : "()V"]];
     return self;
 }
 
--(void) setVector: (jobject) v {
-    vector = v;
-}
-
--(jobject) getVector {
-    return vector;
-}
-
 -(void) addElement: (jobject) o {
-    [self callVoidMethod: vector :"addElement" : "(Ljava/lang/Object;)V", o];
+    [self callVoidMethod: "addElement" : "(Ljava/lang/Object;)V", o];
 }
 
 @end
 
 @implementation JavaMap
 -(JavaMap*) init: (JNIEnv *) e map: (jobject) m {
-    self = (JavaMap*) [super initWithEnv: (JNIEnv *) e];
-    [self setMap: m];
+    self = (JavaMap*) [super initWithEnv: e];
+    [self setObject: m];
     return self;
 }
 
--(void) setMap: (jobject) m {
-    map = m;
-}
-
--(jobject) getMap {
-    return map;
-}
-
 -(void) put: (jobject) key : (jobject) value {
-    [self callObjectMethod: map : "put" : "(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;", key, value];
+    [self callObjectMethod: "put" : "(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;", key, value];
 }
 
 @end

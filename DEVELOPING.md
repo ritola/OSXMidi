@@ -29,7 +29,3 @@ You can pick any of the following
 * Open and Close an interface
 * Send and receive MIDI messages
 
-### Refactoring
-
-* Split Java to Java and JavaObject holding jobject
-
