@@ -2,8 +2,6 @@
 
 #import "Java.h"
 
-CFStringRef CreateEndpointName(MIDIEndpointRef, bool);
-
 @interface MidiObject : JavaObject {
 @public
     MIDIObjectRef ref;
