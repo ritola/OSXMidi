@@ -34,6 +34,8 @@ JNIEXPORT jobject JNICALL Java_cx_oneten_osxmidi_OSXMidi_getEndpoints
 }
 @end
 
+
+
 @implementation MidiEndpoint
 -(MidiEndpoint*) init: (JNIEnv *) e {
     self = (MidiEndpoint*) [super init: e classname: "cx/oneten/osxmidi/jni/MidiEndpoint"];
@@ -44,8 +46,16 @@ JNIEXPORT jobject JNICALL Java_cx_oneten_osxmidi_OSXMidi_getEndpoints
     ref = r;
     [self setLongField: "ref" : ref];
     CFStringRef value = CreateEndpointName(ref, false);
-    [properties put: CFStringToJavaString(env, kMIDIPropertyName) : CFStringToJavaString(env, value)];
+    [self updateStringProperty: kMIDIPropertyName];
     CFRelease(value);
+}
+-(void) updateStringProperty: (CFStringRef) propertyID {
+    CFStringRef str = NULL;
+    MIDIObjectGetStringProperty(ref, propertyID, &str);
+    if (str != NULL) {
+        [properties put: CFStringToJavaString(env, propertyID) : CFStringToJavaString(env, str)];
+        CFRelease(str);
+    }
 }
 -(void) dealloc {
     [properties dealloc];

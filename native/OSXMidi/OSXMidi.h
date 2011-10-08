@@ -16,6 +16,7 @@ JNIEXPORT jobject JNICALL Java_cx_oneten_osxmidi_OSXMidi_getEndpoints (JNIEnv *,
 }
 -(MidiEndpoint*) init: (JNIEnv*) e;
 -(void) setRef: (MIDIEndpointRef) r;
+-(void) updateStringProperty: (CFStringRef) propertyID;
 -(void) dealloc;
 @end
 
