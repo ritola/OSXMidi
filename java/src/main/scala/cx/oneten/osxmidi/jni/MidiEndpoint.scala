@@ -18,6 +18,8 @@ class MidiEndpoint extends MidiObject {
 class MidiEntity extends MidiObject {
   var device: Option[MidiDevice] = None
   def setDevice(d: MidiDevice) { device = Option(d) }
+  override def toString = ("[MidiDevice: ref=" + ref + " properties=" + properties +
+    " device=" + device + "]")
 }
 
 class MidiDevice extends MidiObject {

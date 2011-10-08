@@ -19,8 +19,13 @@ CFStringRef CreateEndpointName(MIDIEndpointRef, bool);
 -(MidiDevice*) init: (JNIEnv*) e;
 @end
 
-@interface MidiEntity : MidiObject {}
+@interface MidiEntity : MidiObject {
+@public
+    MidiDevice *device;
+}
 -(MidiEntity*) init: (JNIEnv *) e;
+-(void) setRef: (MIDIObjectRef) r;
+-(void) dealloc;
 @end
 
 @interface MidiEndpoint : MidiObject {

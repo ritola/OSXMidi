@@ -102,7 +102,23 @@ CFStringRef CreateEndpointName(MIDIEndpointRef endpoint, bool isExternal)
 @implementation MidiEntity
 -(MidiEntity*) init: (JNIEnv *) e {
     self = (MidiEntity*) [super init: e classname: "cx/oneten/osxmidi/jni/MidiEntity"];
+    device = nil;
     return self;
+}
+-(void) setRef: (MIDIObjectRef) r {
+    [super setRef: r];
+    [device dealloc];
+    MIDIDeviceRef d = 0;
+    MIDIEntityGetDevice(ref, &d);
+    if (d != 0) {
+        device = [[MidiEntity alloc] init: env];
+        [device setRef: d];
+        [self callVoidMethod: "setDevice": "(Lcx/oneten/osxmidi/jni/MidiDevice;)V", device->object];
+    }
+}
+-(void) dealloc {
+    [device dealloc];
+    [super dealloc];
 }
 @end
 
