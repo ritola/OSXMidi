@@ -5,19 +5,19 @@
 
 JNIEXPORT jobject JNICALL Java_cx_oneten_osxmidi_OSXMidi_getEndpoints (JNIEnv *, jclass);
 
-@interface MidiObject : JavaObject {}
--(MidiObject*) init: (JNIEnv*) e classname: (const char *) c;
-@end
-
-@interface MidiEndpoint : MidiObject {
+@interface MidiObject : JavaObject {
 @public
-    MIDIEndpointRef ref;
+    MIDIObjectRef ref;
     JavaMap *properties;
 }
--(MidiEndpoint*) init: (JNIEnv*) e;
--(void) setRef: (MIDIEndpointRef) r;
+-(MidiObject*) init: (JNIEnv*) e classname: (const char *) c;
+-(void) setRef: (MIDIObjectRef) r;
 -(void) updateStringProperty: (CFStringRef) propertyID;
 -(void) dealloc;
+@end
+
+@interface MidiEndpoint : MidiObject {}
+-(MidiEndpoint*) init: (JNIEnv*) e;
 @end
 
 @interface MidiEntity : MidiObject {}
