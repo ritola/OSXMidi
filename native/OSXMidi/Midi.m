@@ -92,9 +92,9 @@ CFStringRef CreateEndpointName(MIDIEndpointRef endpoint, bool isExternal)
 }
 @end
 
-@implementation MidiEndpoint
--(MidiEndpoint*) init: (JNIEnv *) e {
-    self = (MidiEndpoint*) [super init: e classname: "cx/oneten/osxmidi/jni/MidiEndpoint"];
+@implementation MidiDevice
+-(MidiDevice*) init: (JNIEnv *) e {
+    self = (MidiDevice*) [super init: e classname: "cx/oneten/osxmidi/jni/MidiDevice"];
     return self;
 }
 @end
@@ -106,9 +106,25 @@ CFStringRef CreateEndpointName(MIDIEndpointRef endpoint, bool isExternal)
 }
 @end
 
-@implementation MidiDevice
--(MidiDevice*) init: (JNIEnv *) e {
-    self = (MidiDevice*) [super init: e classname: "cx/oneten/osxmidi/jni/MidiDevice"];
+@implementation MidiEndpoint
+-(MidiEndpoint*) init: (JNIEnv *) e {
+    self = (MidiEndpoint*) [super init: e classname: "cx/oneten/osxmidi/jni/MidiEndpoint"];
+    entity = nil;
     return self;
+}
+-(void) setRef: (MIDIObjectRef) r {
+    [super setRef: r];
+    [entity dealloc];
+    MIDIEntityRef e = 0;
+    MIDIEndpointGetEntity(ref, &e);
+    if (e != 0) {
+        entity = [[MidiEntity alloc] init: env];
+        [entity setRef: e];
+        [self callVoidMethod: "setEntity": "(Lcx/oneten/osxmidi/jni/MidiEntity;)V", entity->object];
+    }
+}
+-(void) dealloc {
+    [entity dealloc];
+    [super dealloc];
 }
 @end

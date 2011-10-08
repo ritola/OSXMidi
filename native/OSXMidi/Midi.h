@@ -15,14 +15,19 @@ CFStringRef CreateEndpointName(MIDIEndpointRef, bool);
 -(void) dealloc;
 @end
 
-@interface MidiEndpoint : MidiObject {}
--(MidiEndpoint*) init: (JNIEnv*) e;
+@interface MidiDevice : MidiObject {}
+-(MidiDevice*) init: (JNIEnv*) e;
 @end
 
 @interface MidiEntity : MidiObject {}
--(MidiEntity*) init: (JNIEnv*) e;
+-(MidiEntity*) init: (JNIEnv *) e;
 @end
 
-@interface MidiDevice : MidiObject {}
--(MidiDevice*) init: (JNIEnv*) e;
+@interface MidiEndpoint : MidiObject {
+@public
+    MidiEntity *entity;
+}
+-(MidiEndpoint*) init: (JNIEnv*) e;
+-(void) setRef: (MIDIObjectRef) r;
+-(void) dealloc;
 @end
