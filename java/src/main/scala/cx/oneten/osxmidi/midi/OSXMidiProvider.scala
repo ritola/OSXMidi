@@ -13,7 +13,13 @@ import cx.oneten.osxmidi.OSXMidi
 import cx.oneten.osxmidi.jni.MidiEndpoint
 
 class OSXMidiProvider extends MidiDeviceProvider {
-  override def getDevice(info: Info): MidiDevice = { null }
+  override def isDeviceSupported(info: Info): Boolean = info.isInstanceOf[OSXMidiInfo]
+
+  override def getDevice(info: Info): MidiDevice = info match {
+    case i: OSXMidiInfo => new OSXMidiDevice(i)
+    case _ => throw new IllegalArgumentException
+  }
+
   override def getDeviceInfo(): Array[Info] = {
     val o = new OSXMidi
     o.getEndpoints.map(new OSXMidiInfo(_)).toArray
