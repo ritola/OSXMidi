@@ -30,7 +30,15 @@
 @public
     MidiEntity *entity;
 }
--(MidiEndpoint*) init: (JNIEnv*) e;
+-(MidiEndpoint*) init: (JNIEnv*) e classname: (const char *) c;
 -(void) setRef: (MIDIObjectRef) r;
 -(void) dealloc;
+@end
+
+@interface MidiIn : MidiEndpoint {}
+-(MidiIn*) init: (JNIEnv*) e;
+@end
+    
+@interface MidiOut : MidiEndpoint {}
+-(MidiOut*) init: (JNIEnv*) e;
 @end

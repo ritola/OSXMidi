@@ -8,6 +8,9 @@ class MidiObject {
   override def toString = "[MidiObject: ref=" + ref + " properties=" + properties + "]"
 }
 
+class MidiIn extends MidiEndpoint
+class MidiOut extends MidiEndpoint
+
 class MidiEndpoint extends MidiObject {
   var entity: Option[MidiEntity] = None
   def setEntity(e: MidiEntity) { entity = Option(e) }

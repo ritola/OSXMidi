@@ -57,8 +57,8 @@
 @end
 
 @implementation MidiEndpoint
--(MidiEndpoint*) init: (JNIEnv *) e {
-    self = (MidiEndpoint*) [super init: e classname: "cx/oneten/osxmidi/jni/MidiEndpoint"];
+-(MidiEndpoint*) init: (JNIEnv*) e classname: (const char *) c{
+    self = (MidiEndpoint*) [super init: e classname: c];
     entity = nil;
     return self;
 }
@@ -78,3 +78,18 @@
     [super dealloc];
 }
 @end
+
+@implementation MidiIn
+-(MidiIn*) init: (JNIEnv *) e {
+    self = (MidiIn*) [super init: e classname: "cx/oneten/osxmidi/jni/MidiIn"];
+    return self;
+}
+@end
+
+@implementation MidiOut
+-(MidiOut*) init: (JNIEnv *) e {
+    self = (MidiOut*) [super init: e classname: "cx/oneten/osxmidi/jni/MidiOut"];
+    return self;
+}
+@end
+
