@@ -10,7 +10,7 @@ import javax.sound.midi.Receiver
 import scala.collection.JavaConversions._
 
 import cx.oneten.osxmidi.OSXMidi
-import cx.oneten.osxmidi.jni.MidiEndpoint
+import cx.oneten.osxmidi.jni.{MidiIn, MidiOut, MidiEndpoint}
 
 class OSXMidiProvider extends MidiDeviceProvider {
   override def isDeviceSupported(info: Info): Boolean = info.isInstanceOf[OSXMidiInfo]
@@ -40,7 +40,8 @@ class EndpointInfo(e: MidiEndpoint) {
 
 import EndpointInfo._
 
-class OSXMidiInfo(e: MidiEndpoint) extends Info(e.name, e.vendor, e.description, e.version) {
+case class OSXMidiInfo(endpoint: MidiEndpoint)
+  extends Info(endpoint.name, endpoint.vendor, endpoint.description, endpoint.version) {
 }
 
 class OSXMidiDevice(i: OSXMidiInfo) extends MidiDevice {
@@ -49,8 +50,8 @@ class OSXMidiDevice(i: OSXMidiInfo) extends MidiDevice {
   override def getTransmitter(): Transmitter = null
   override def getReceivers(): List[Receiver] = new ArrayList()
   override def getReceiver(): Receiver = null
-  override def getMaxTransmitters: Int = 0
-  override def getMaxReceivers: Int = 0
+  override def getMaxTransmitters: Int = if (i.endpoint.isInstanceOf[MidiIn]) -1 else 0
+  override def getMaxReceivers: Int = if (i.endpoint.isInstanceOf[MidiOut]) -1 else 0
   override def getMicrosecondPosition: Long = 0
   override def isOpen: Boolean = false
   override def open {}
