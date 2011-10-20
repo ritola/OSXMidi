@@ -22,12 +22,20 @@ class OSXMidiProvider extends MidiDeviceProvider {
 
   override def getDeviceInfo(): Array[Info] = {
     val o = new OSXMidi
-    o.getEndpoints.map(new OSXMidiInfo(_)).toArray
+    o.getEndpoints.map(e => new OSXMidiInfo(info(e))).toArray
   }
+
+  def info(e: MidiEndpoint) = {
+    def name = e.properties.get("name")
+    def vendor = e.entity.get.device.get.properties.get("name")
+    def description = e.properties.get("name")
+    def version = "1.0"
+    (name, vendor, description, version)
+  }
+
 }
 
-class OSXMidiInfo(e: MidiEndpoint)
-  extends Info(e.properties.get("name"), e.entity.get.device.get.properties.get("name"), e.properties.get("name"), "1.0") {
+class OSXMidiInfo(i: Tuple4[String, String, String, String]) extends Info(i._1, i._2, i._3, i._4) {
 }
 
 class OSXMidiDevice(i: OSXMidiInfo) extends MidiDevice {
