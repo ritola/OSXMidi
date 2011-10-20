@@ -21,9 +21,6 @@ We need help on the following:
 
 You can pick any of the following
 
-* Enumerate available interfaces
-    * Map each endpoint to [MidiDevice](http://download.oracle.com/javase/1.5.0/docs/api/javax/sound/midi/MidiDevice.Info.html)
-    * Make a service
 * Open and Close an interface
 * Send and receive MIDI messages
 
