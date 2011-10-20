@@ -8,6 +8,7 @@ import javax.sound.midi.MidiDevice.Info
 import javax.sound.midi.Transmitter
 import javax.sound.midi.Receiver
 import scala.collection.JavaConversions._
+import scala.util.control.Exception.allCatch
 
 import cx.oneten.osxmidi.OSXMidi
 import cx.oneten.osxmidi.jni.{MidiIn, MidiOut, MidiEndpoint}
@@ -32,9 +33,9 @@ object EndpointInfo {
 }
 
 class EndpointInfo(e: MidiEndpoint) {
-  def name = e.properties.get("name")
-  def vendor = e.entity.get.device.get.properties.get("name")
-  def description = e.properties.get("name")
+  def name = allCatch.opt { e.properties.get("name") }.getOrElse("OSX Midi Endpoint")
+  def vendor = allCatch.opt { e.entity.get.device.get.properties.get("name") }.getOrElse(name)
+  def description = name
   def version = "1.0"
 }
 
