@@ -50,11 +50,11 @@ case class OSXMidiInfo(endpoint: MidiEndpoint)
 
 abstract class OSXMidiDevice(i: OSXMidiInfo) extends MidiDevice {
   var opened = false
-  override def getDeviceInfo(): Info = i
-  override def getTransmitters(): List[Transmitter] = Nil
-  override def getTransmitter(): Transmitter = null
-  override def getReceivers(): List[Receiver] = Nil
-  override def getReceiver(): Receiver = null
+  override def getDeviceInfo: Info = i
+  override def getTransmitters: List[Transmitter] = Nil
+  override def getTransmitter: Transmitter = null
+  override def getReceivers: List[Receiver] = Nil
+  override def getReceiver: Receiver = null
   override def getMaxTransmitters: Int = 0
   override def getMaxReceivers: Int = 0
   override def getMicrosecondPosition: Long = 0
@@ -82,7 +82,7 @@ class OSXMidiReceiver(d: OSXMidiDevice) extends Receiver {
 }
 
 class OSXMidiTransmitter(d: OSXMidiDevice) extends Transmitter {
-  var receiver: Receiver = null;
+  var receiver: Receiver = null
   override def close {}
   override def getReceiver: Receiver = receiver
   override def setReceiver(r: Receiver) { receiver = r }
