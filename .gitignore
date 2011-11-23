@@ -7,6 +7,7 @@ java/target/
 java/lib_managed/
 java/src_managed/
 java/project/boot/
+java/project/target/
 java/project/build/target/
 java/project/plugins/target/
 java/project/plugins/lib_managed/
