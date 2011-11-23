@@ -1,4 +1,4 @@
-# Java MIDI drivers for OS X
+# Java MIDI driver for OS X
 
 Apple OS X can not send MIDI system exclusive commands from Java. Workaround for this is to use a dedicated driver on /Library/Java/Extensions folder. This project is about to provide this driver.
 
