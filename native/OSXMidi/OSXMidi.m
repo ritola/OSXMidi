@@ -2,7 +2,7 @@
 #import "OSXMidi.h"
 
 JNIEXPORT jobject JNICALL Java_cx_oneten_osxmidi_OSXMidi_00024_getEndpoints
-(JNIEnv *env, jclass clazz)
+(JNIEnv *env, jclass c)
 {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     JavaVector *vector = [[[JavaVector alloc] init: env] autorelease];
