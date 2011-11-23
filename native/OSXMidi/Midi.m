@@ -11,6 +11,7 @@
     ref = r;
     [self setLongField: "ref" : ref];
     [self updateStringProperty: kMIDIPropertyName];
+    [self updateStringProperty: kMIDIPropertyDisplayName];
 }
 -(void) updateStringProperty: (CFStringRef) propertyID {
     CFStringRef str = NULL;
