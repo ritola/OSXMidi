@@ -82,7 +82,8 @@ class OSXMidiReceiver(d: OSXMidiDevice) extends Receiver {
 }
 
 class OSXMidiTransmitter(d: OSXMidiDevice) extends Transmitter {
+  var receiver: Receiver = null;
   override def close {}
-  override def getReceiver: Receiver = null
-  override def setReceiver(r: Receiver) {}
+  override def getReceiver: Receiver = receiver
+  override def setReceiver(r: Receiver) { receiver = r }
 }
