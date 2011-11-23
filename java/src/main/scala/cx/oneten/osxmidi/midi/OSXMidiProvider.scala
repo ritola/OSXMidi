@@ -45,6 +45,7 @@ case class OSXMidiInfo(endpoint: MidiEndpoint)
 }
 
 class OSXMidiDevice(i: OSXMidiInfo) extends MidiDevice {
+  var opened = false
   override def getDeviceInfo(): Info = i
   override def getTransmitters(): List[Transmitter] = new ArrayList()
   override def getTransmitter(): Transmitter = null
@@ -53,7 +54,7 @@ class OSXMidiDevice(i: OSXMidiInfo) extends MidiDevice {
   override def getMaxTransmitters: Int = if (i.endpoint.isInstanceOf[MidiIn]) -1 else 0
   override def getMaxReceivers: Int = if (i.endpoint.isInstanceOf[MidiOut]) -1 else 0
   override def getMicrosecondPosition: Long = 0
-  override def isOpen: Boolean = false
-  override def open {}
-  override def close {}
+  override def isOpen: Boolean = opened
+  override def open { opened = true }
+  override def close { opened = false }
 }
