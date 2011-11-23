@@ -1,7 +1,7 @@
 #import "Midi.h"
 #import "OSXMidi.h"
 
-JNIEXPORT jobject JNICALL Java_cx_oneten_osxmidi_OSXMidi_getEndpoints
+JNIEXPORT jobject JNICALL Java_cx_oneten_osxmidi_OSXMidi_00024_getEndpoints
 (JNIEnv *env, jclass clazz)
 {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];

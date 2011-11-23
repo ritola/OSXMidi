@@ -22,8 +22,7 @@ class OSXMidiProvider extends MidiDeviceProvider {
   }
 
   override def getDeviceInfo(): Array[Info] = {
-    val o = new OSXMidi
-    o.getEndpoints.map(new OSXMidiInfo(_)).toArray
+    OSXMidi.getEndpoints.map(new OSXMidiInfo(_)).toArray
   }
 
 }
