@@ -21,6 +21,7 @@ We need help on the following:
 
 You can pick any of the following
 
-* Open and Close an interface
-* Send and receive MIDI messages
-
+* Send MIDI message
+* Receive MIDI message
+* Send system exclusive message
+* Receive system exclusive message
