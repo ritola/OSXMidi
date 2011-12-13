@@ -9,6 +9,9 @@ jstring CFStringToJavaString(JNIEnv *, CFStringRef);
 -(Java*) initWithEnv: (JNIEnv*) env;
 -(jclass) findClass: (const char*) name;
 -(jobject) newObject: (const char*) name : (const char*) signature;
+-(jsize) getArrayLength: (jbyteArray) array;
+-(jbyte *) getByteArrayElements: (jbyteArray) array;
+-(void) releaseByteArrayElements: (jbyteArray) array: (jbyte *) elements;
 @end
 
 @interface JavaObject : Java {
@@ -20,6 +23,7 @@ jstring CFStringToJavaString(JNIEnv *, CFStringRef);
 -(void) callVoidMethod: (const char*) name : (const char*) signature, ...;
 
 -(jobject) getObjectField: (const char*) name : (const char*) signature;
+-(jlong) getLongField: (const char*) name;
 -(void) setLongField: (const char*) name : (long) value;
 -(void) setObjectField: (const char*) name : (const char*) signature : (jobject) value;
 -(void) setStringField: (const char*) name : (CFStringRef) value;

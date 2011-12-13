@@ -4,3 +4,4 @@
 #import "Java.h"
 
 JNIEXPORT jobject JNICALL Java_cx_oneten_osxmidi_OSXMidi_00024_getEndpoints (JNIEnv *, jclass);
+JNIEXPORT void JNICALL Java_cx_oneten_osxmidi_OSXMidi_00024_sendMidi (JNIEnv *, jclass, jobject, jbyteArray);

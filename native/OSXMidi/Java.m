@@ -17,14 +17,21 @@ jstring CFStringToJavaString(JNIEnv *env, CFStringRef str)
     if ( self ) env = e;
     return self;
 }
-
-- (jclass) findClass: (const char*) name {
+-(jclass) findClass: (const char*) name {
     return (*env)->FindClass(env, name);
 }
-
-- (jobject) newObject: (const char*) name : (const char*) signature {
+-(jobject) newObject: (const char*) name : (const char*) signature {
     jclass c = [self findClass: name];
     return (*env)->NewObject(env, c, (*env)->GetMethodID(env, c, "<init>", signature));
+}
+-(jsize) getArrayLength: (jbyteArray) array {
+    return (*env)->GetArrayLength(env, array);
+}
+-(jbyte *) getByteArrayElements: (jbyteArray) array {
+    return (*env)->GetByteArrayElements(env, array, 0);
+}
+-(void) releaseByteArrayElements: (jbyteArray) array: (jbyte *) elements {
+    (*env)->ReleaseByteArrayElements(env, array, elements, 0);
 }
 
 @end
@@ -86,6 +93,10 @@ jstring CFStringToJavaString(JNIEnv *env, CFStringRef str)
 
 - (jobject) getObjectField: (const char*) name : (const char*) signature {
     return (*env)->GetObjectField(env, object, [self findFieldId: name : signature]);
+}
+
+- (jlong) getLongField: (const char*) name {
+    return (*env)->GetLongField(env, object, [self findFieldId: name : "J"]);
 }
 
 - (void) setLongField: (const char*) name : (long) value {

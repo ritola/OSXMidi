@@ -25,3 +25,12 @@ JNIEXPORT jobject JNICALL Java_cx_oneten_osxmidi_OSXMidi_00024_getEndpoints
     [pool release];
     return result;
 }
+
+JNIEXPORT void JNICALL Java_cx_oneten_osxmidi_OSXMidi_00024_sendMidi
+(JNIEnv *env, jclass c, jobject endPoint, jbyteArray bs)
+{
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    MidiOut *midiOut = [[[MidiOut alloc] init: env object: endPoint] autorelease];
+    [midiOut sendMidi: bs];
+    [pool release];
+}

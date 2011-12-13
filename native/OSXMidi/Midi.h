@@ -7,6 +7,7 @@
     MIDIObjectRef ref;
     JavaMap *properties;
 }
+-(MidiObject*) init: (JNIEnv*) e classname: (const char *) c object: (jobject) o;
 -(MidiObject*) init: (JNIEnv*) e classname: (const char *) c;
 -(void) setRef: (MIDIObjectRef) r;
 -(void) updateStringProperty: (CFStringRef) propertyID;
@@ -41,4 +42,10 @@
     
 @interface MidiOut : MidiEndpoint {}
 -(MidiOut*) init: (JNIEnv*) e;
+-(MidiOut*) init: (JNIEnv *) e object: (jobject) o;
+-(void) sendMidi: (jbyteArray) bs;
 @end
+
+
+static void NotifyProc(const MIDINotification *, void *);
+static void ReadProc(const MIDIPacketList *, void *, void *);

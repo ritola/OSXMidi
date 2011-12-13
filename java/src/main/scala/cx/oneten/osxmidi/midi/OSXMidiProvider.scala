@@ -48,9 +48,9 @@ case class OSXMidiInfo(endpoint: MidiEndpoint)
   extends Info(endpoint.name, endpoint.vendor, endpoint.description, endpoint.version) {
 }
 
-abstract class OSXMidiDevice(i: OSXMidiInfo) extends MidiDevice {
+abstract case class OSXMidiDevice(info: OSXMidiInfo) extends MidiDevice {
   var opened = false
-  override def getDeviceInfo: Info = i
+  override def getDeviceInfo: Info = info
   override def getTransmitters: List[Transmitter] = Nil
   override def getTransmitter: Transmitter = null
   override def getReceivers: List[Receiver] = Nil
@@ -78,7 +78,9 @@ class OSXMidiOutputDevice(i: OSXMidiInfo) extends OSXMidiDevice(i) {
 class OSXMidiReceiver(d: OSXMidiDevice) extends Receiver {
   import javax.sound.midi.MidiMessage
   override def close {}
-  override def send(message: MidiMessage, timeStamp: Long) {}
+  override def send(message: MidiMessage, timeStamp: Long) {
+    OSXMidi.sendMidi(d.info.endpoint, message.getMessage())
+  }
 }
 
 class OSXMidiTransmitter(d: OSXMidiDevice) extends Transmitter {
