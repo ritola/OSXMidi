@@ -214,6 +214,9 @@
 /* Begin PBXProject section */
 		12C07A5F1413DA89003778BF /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0430;
+			};
 			buildConfigurationList = 12C07A621413DA89003778BF /* Build configuration list for PBXProject "OSXMidi" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
@@ -349,6 +352,7 @@
 		12C07A901413DA89003778BF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				EXECUTABLE_EXTENSION = jnilib;
@@ -363,6 +367,7 @@
 		12C07A911413DA89003778BF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				EXECUTABLE_EXTENSION = jnilib;
@@ -377,6 +382,7 @@
 		12C07A931413DA89003778BF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "OSXMidi/OSXMidi-Prefix.pch";
@@ -389,6 +395,7 @@
 		12C07A941413DA89003778BF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "OSXMidi/OSXMidi-Prefix.pch";

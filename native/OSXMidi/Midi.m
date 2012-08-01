@@ -28,10 +28,6 @@
         CFRelease(str);
     }
 }
--(void) dealloc {
-    [properties dealloc];
-    [super dealloc];
-}
 @end
 
 @implementation MidiDevice
@@ -49,7 +45,6 @@
 }
 -(void) setRef: (MIDIObjectRef) r {
     [super setRef: r];
-    [device dealloc];
     MIDIDeviceRef d = 0;
     MIDIEntityGetDevice(ref, &d);
     if (d != 0) {
@@ -57,10 +52,6 @@
         [device setRef: d];
         [self callVoidMethod: "setDevice": "(Lcx/oneten/osxmidi/jni/MidiDevice;)V", device->object];
     }
-}
--(void) dealloc {
-    [device dealloc];
-    [super dealloc];
 }
 @end
 
@@ -72,7 +63,6 @@
 }
 -(void) setRef: (MIDIObjectRef) r {
     [super setRef: r];
-    [entity dealloc];
     MIDIEntityRef e = 0;
     MIDIEndpointGetEntity(ref, &e);
     if (e != 0) {
@@ -80,10 +70,6 @@
         [entity setRef: e];
         [self callVoidMethod: "setEntity": "(Lcx/oneten/osxmidi/jni/MidiEntity;)V", entity->object];
     }
-}
--(void) dealloc {
-    [entity dealloc];
-    [super dealloc];
 }
 @end
 
@@ -127,18 +113,18 @@
     return port;
 }
 -(void) sendMidi: (jbyteArray) bs {
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init]; 
-    MIDIClientRef client = [self getMidiClient];
-    MIDIPortRef port = [self getOutputPort];
-    OSStatus s;
+    @autoreleasepool { 
+        MIDIClientRef client = [self getMidiClient];
+        MIDIPortRef port = [self getOutputPort];
+        OSStatus s;
 
-    MIDIPacketList packetList=[self getPacketList: bs];
+        MIDIPacketList packetList=[self getPacketList: bs];
 
-    OSStatus err = MIDISend(port, ref, &packetList);
-    if (err != noErr) printf("MIDI sending error: %i\n", s);
+        OSStatus err = MIDISend(port, ref, &packetList);
+        if (err != noErr) printf("MIDI sending error: %i\n", s);
 
-    MIDIPortDispose(port);
-    MIDIClientDispose(client);
-    [pool release];
+        MIDIPortDispose(port);
+        MIDIClientDispose(client);
+    }
 }
 @end

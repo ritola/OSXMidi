@@ -4,33 +4,33 @@
 JNIEXPORT jobject JNICALL Java_cx_oneten_osxmidi_OSXMidi_00024_getEndpoints
 (JNIEnv *env, jclass c)
 {
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-    JavaVector *vector = [[[JavaVector alloc] init: env] autorelease];
-    
-    ItemCount count = MIDIGetNumberOfSources();
-    for (ItemCount i = 0; i < count; i++) {
-        MidiIn *midiEndpoint = [[[MidiIn alloc] init: env] autorelease];
-        [midiEndpoint setRef: MIDIGetSource(i)];
-        [vector addElement: midiEndpoint->object];
-    }
+    @autoreleasepool {
+        JavaVector *vector = [[JavaVector alloc] init: env];
+        
+        ItemCount count = MIDIGetNumberOfSources();
+        for (ItemCount i = 0; i < count; i++) {
+            MidiIn *midiEndpoint = [[MidiIn alloc] init: env];
+            [midiEndpoint setRef: MIDIGetSource(i)];
+            [vector addElement: midiEndpoint->object];
+        }
 
-    count = MIDIGetNumberOfDestinations();
-    for (ItemCount i = 0; i < count; i++) {
-        MidiOut *midiEndpoint = [[[MidiOut alloc] init: env] autorelease];
-        [midiEndpoint setRef: MIDIGetDestination(i)];
-        [vector addElement: midiEndpoint->object];
-    }
+        count = MIDIGetNumberOfDestinations();
+        for (ItemCount i = 0; i < count; i++) {
+            MidiOut *midiEndpoint = [[MidiOut alloc] init: env];
+            [midiEndpoint setRef: MIDIGetDestination(i)];
+            [vector addElement: midiEndpoint->object];
+        }
 
-    jobject result = vector->object;
-    [pool release];
-    return result;
+        jobject result = vector->object;
+        return result;
+    }
 }
 
 JNIEXPORT void JNICALL Java_cx_oneten_osxmidi_OSXMidi_00024_sendMidi
 (JNIEnv *env, jclass c, jobject endPoint, jbyteArray bs)
 {
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-    MidiOut *midiOut = [[[MidiOut alloc] init: env object: endPoint] autorelease];
-    [midiOut sendMidi: bs];
-    [pool release];
+    @autoreleasepool {
+        MidiOut *midiOut = [[MidiOut alloc] init: env object: endPoint];
+        [midiOut sendMidi: bs];
+    }
 }
