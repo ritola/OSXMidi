@@ -11,7 +11,6 @@
 -(MidiObject*) init: (JNIEnv*) e classname: (const char *) c;
 -(void) setRef: (MIDIObjectRef) r;
 -(void) updateStringProperty: (CFStringRef) propertyID;
--(void) dealloc;
 @end
 
 @interface MidiDevice : MidiObject {}
@@ -24,7 +23,6 @@
 }
 -(MidiEntity*) init: (JNIEnv *) e;
 -(void) setRef: (MIDIObjectRef) r;
--(void) dealloc;
 @end
 
 @interface MidiEndpoint : MidiObject {
@@ -33,7 +31,6 @@
 }
 -(MidiEndpoint*) init: (JNIEnv*) e classname: (const char *) c;
 -(void) setRef: (MIDIObjectRef) r;
--(void) dealloc;
 @end
 
 @interface MidiIn : MidiEndpoint {}

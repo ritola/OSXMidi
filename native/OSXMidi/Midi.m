@@ -48,7 +48,7 @@
     MIDIDeviceRef d = 0;
     MIDIEntityGetDevice(ref, &d);
     if (d != 0) {
-        device = [[MidiEntity alloc] init: env];
+        device = [[MidiDevice alloc] init: env];
         [device setRef: d];
         [self callVoidMethod: "setDevice": "(Lcx/oneten/osxmidi/jni/MidiDevice;)V", device->object];
     }
